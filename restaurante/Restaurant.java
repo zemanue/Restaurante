@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
+
+    private static int occupiedTables = 0;
         
     private static int openingHour = 12;
     private static int currentHour = 12;
@@ -19,9 +21,11 @@ public class Restaurant {
             advanceTime(1);
         }
 
-        System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
         freeAllTables();
+        System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
         System.out.println("Restaurante cerrado. ¡Hasta mañana!");
+        showStatistics();
+
     }
 
     public static void initializeTables() {
@@ -71,6 +75,7 @@ public class Restaurant {
             if (!table.isOccupied() && table.getMaxCapacity() >= people) {
                 table.occupyTable(people);
                 tableAssigned = true;
+                occupiedTables++;
                 break;
             }
         }
@@ -90,4 +95,8 @@ public class Restaurant {
         }
     }
 
+    public static void showStatistics() {
+        System.out.println("Estadísticas:");
+        System.out.println("Mesas ocupadas durante el día: " + occupiedTables);
+    }
 }

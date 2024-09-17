@@ -46,19 +46,32 @@ public class Restaurant {
         System.out.println("Llegan nuevos clientes");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
-        
-        //se comprueba desde la mesa 1 si está libre y si no supera el número máximo de ocupantes
-        //true: la mesa queda asignada
-        //false: se comprueba la siguiente mesa hasta que no quede ninguna, en cuyo caso se van para casita.
+
+        boolean tableAssigned = false;
+        for (Table table : tableList) {
+            if (!table.isOccupied() && table.getMaxCapacity() >= people) {
+                table.occupyTable(people);
+                tableAssigned = true;
+                break;
+            }
+        }
+        if (!tableAssigned) {
+            System.out.println("'Lo siento, no quedan mesas disponibles para " + people + " personas. Vuelvan más tarde.'");
+        }
     }
 
     public static void main(String[] args) {
-        //Buscar la manera de crear una lista con todas las mesas
 
-
+        initializeTables();
         System.out.println("Restaurante abierto");
         
-        customersArrive();
+        for (int i = 0; i < 10; i++) {
+            customersArrive();
+        }
 
+        for (Table table : tableList) {
+            table.freeTable();
+        }
+        System.out.println("Restaurante cerrado.");
     }
 }

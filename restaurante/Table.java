@@ -31,25 +31,34 @@ public class Table {
     }
     
 
+    //Constructor con maxCapacity por defecto = 2;
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
         this.occupied = false;
+        this.maxCapacity = 2;
         this.peopleSeated = 0;
     }
     
-    public Table(int tableNumber, int peopleSeated) {
+    public Table(int tableNumber, int maxCapacity) {
         this.tableNumber = tableNumber;
-        this.occupied = peopleSeated > 0;
-        this.peopleSeated = peopleSeated;
+        this.maxCapacity = maxCapacity;
+        this.occupied = false;
+        this.peopleSeated = 0;
     }
 
-    public void occupyTable(int peopleSeated) {
+    public boolean occupyTable(int peopleSeated) {
         if (peopleSeated <= 0) {
-            System.out.println("Mesa no adjudicada. El número de personas debe ser mayor a 0");
-        } else {
-            this.occupied = peopleSeated > 0;
+            System.out.println("Error: El número de personas debe ser mayor a 0");
+            return false;
+        } else if (peopleSeated > maxCapacity) {
+            System.out.println("Mesa no adjudicada: La mesa " + tableNumber + " tiene capacidad máxima para " + maxCapacity + " personas.");
+            return false;
+        }
+        else {
+            this.occupied = true;
             this.peopleSeated = peopleSeated;
-            System.out.println("Mesa adjudicada");
+            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas.");
+            return true;
         }
     }
 }

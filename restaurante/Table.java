@@ -61,4 +61,10 @@ public class Table {
             return true;
         }
     }
+
+    public void freeTable() {
+        this.occupied = false;
+        this.peopleSeated = 0;
+        System.out.println("Mesa " + tableNumber + " liberada.");
+    }
 }

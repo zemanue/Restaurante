@@ -5,6 +5,19 @@ public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
 
+    public static void main(String[] args) {
+
+        initializeTables();
+        System.out.println("Restaurante abierto");
+
+        for (int i = 0; i < 10; i++) {
+            customersArrive();
+        }
+
+        freeAllTables();
+        System.out.println("Restaurante cerrado.");
+    }
+
     public static void initializeTables() {
         Table table1 = new Table(1, 8);
         Table table2 = new Table(2);
@@ -67,16 +80,4 @@ public class Restaurant {
         }
     }
 
-    public static void main(String[] args) {
-
-        initializeTables();
-        System.out.println("Restaurante abierto");
-        
-        for (int i = 0; i < 10; i++) {
-            customersArrive();
-        }
-        
-        freeAllTables();
-        System.out.println("Restaurante cerrado.");
-    }
 }

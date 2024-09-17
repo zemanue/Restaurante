@@ -60,6 +60,13 @@ public class Restaurant {
         }
     }
 
+    public static void freeAllTables() {
+        System.out.println("Todas las mesas han sido liberadas.");
+        for (Table table : tableList) {
+            table.freeTable(false);
+        }
+    }
+
     public static void main(String[] args) {
 
         initializeTables();
@@ -68,10 +75,8 @@ public class Restaurant {
         for (int i = 0; i < 10; i++) {
             customersArrive();
         }
-
-        for (Table table : tableList) {
-            table.freeTable();
-        }
+        
+        freeAllTables();
         System.out.println("Restaurante cerrado.");
     }
 }

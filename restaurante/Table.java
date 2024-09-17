@@ -67,4 +67,11 @@ public class Table {
         this.peopleSeated = 0;
         System.out.println("Mesa " + tableNumber + " liberada.");
     }
+    public void freeTable(boolean message) {
+        this.occupied = false;
+        this.peopleSeated = 0;
+        if (message) {
+        System.out.println("Mesa " + tableNumber + " liberada.");
+        }
+    }
 }

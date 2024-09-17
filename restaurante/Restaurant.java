@@ -4,18 +4,24 @@ import java.util.Scanner;
 public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
-
+        
+    private static int openingHour = 12;
+    private static int currentHour = 12;
+    private static int closingHour = 22;
+    
     public static void main(String[] args) {
 
         initializeTables();
         System.out.println("Restaurante abierto");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = openingHour; i < closingHour; i++) {
             customersArrive();
+            advanceTime(1);
         }
 
+        System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
         freeAllTables();
-        System.out.println("Restaurante cerrado.");
+        System.out.println("Restaurante cerrado. ¡Hasta mañana!");
     }
 
     public static void initializeTables() {
@@ -56,7 +62,7 @@ public class Restaurant {
 
     public static void customersArrive() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Llegan nuevos clientes");
+        System.out.println("Son las " + currentHour + ":00. Llegan nuevos clientes.");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
 
@@ -71,6 +77,10 @@ public class Restaurant {
         if (!tableAssigned) {
             System.out.println("'Lo siento, no quedan mesas disponibles para " + people + " personas. Vuelvan más tarde.'");
         }
+    }
+
+    public static void advanceTime(int hours) {
+        currentHour += hours;
     }
 
     public static void freeAllTables() {

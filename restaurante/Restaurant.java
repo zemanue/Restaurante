@@ -6,6 +6,7 @@ public class Restaurant {
     private static ArrayList<Table> tableList = new ArrayList<>();
 
     private static int occupiedTables = 0;
+    private static int totalCustomers = 0;
         
     private static int openingHour = 12;
     private static int currentHour = 12;
@@ -25,26 +26,25 @@ public class Restaurant {
         System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
         System.out.println("Restaurante cerrado. ¡Hasta mañana!");
         showStatistics();
-
     }
 
     public static void initializeTables() {
-        Table table1 = new Table(1, 8);
+        Table table1 = new Table(1, 12);
         Table table2 = new Table(2);
         Table table3 = new Table(3);
         Table table4 = new Table(4);
         Table table5 = new Table(5);
         Table table6 = new Table(6, 4);
         Table table7 = new Table(7, 4);
-        Table table8 = new Table(8);
+        Table table8 = new Table(8, 4);
         Table table9 = new Table(9);
         Table table10 = new Table(10, 6);
         Table table11 = new Table(11);
         Table table12 = new Table(12);
         Table table13 = new Table(13);
-        Table table14 = new Table(14);
+        Table table14 = new Table(14, 4);
         Table table15 = new Table(15, 4);
-        Table table16 = new Table(16, 6);
+        Table table16 = new Table(16, 8);
 
         tableList.add(table1);
         tableList.add(table2);
@@ -76,6 +76,7 @@ public class Restaurant {
                 table.occupyTable(people);
                 tableAssigned = true;
                 occupiedTables++;
+                totalCustomers += people;
                 break;
             }
         }
@@ -98,5 +99,6 @@ public class Restaurant {
     public static void showStatistics() {
         System.out.println("Estadísticas:");
         System.out.println("Mesas ocupadas durante el día: " + occupiedTables);
+        System.out.println("Clientes atendidos: " + totalCustomers);
     }
 }

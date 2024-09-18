@@ -1,4 +1,3 @@
-// import java.util.ArrayList;
 import java.util.Random;
 
 public class Table {
@@ -88,27 +87,21 @@ public class Table {
         }
     }
 
-    public void freeTable() {
-        for (int i = 0; i < peopleSeated.length; i++) {
-            this.peopleSeated[i].setSatisfactionLevel(random.nextInt(1, 6));
-            totalSatisfaction += this.peopleSeated[i].getSatisfactionLevel();
-            this.peopleSeated[i] = null;
-        }
-        this.occupied = false;
-        this.occupiedSeats = 0;
-        System.out.println("Mesa " + tableNumber + " liberada.");
-    }
-
     public void freeTable(boolean message) {
-        for (int i = 0; i < occupiedSeats; i++) {
-            peopleSeated[i].setSatisfactionLevel(random.nextInt(1, 6));
-            totalSatisfaction += peopleSeated[i].getSatisfactionLevel();
-            peopleSeated[i] = null;
-        }
-        this.occupied = false;
-        this.occupiedSeats = 0;
         if (message) {
             System.out.println("Mesa " + tableNumber + " liberada.");
         }
+        for (int i = 0; i < occupiedSeats; i++) {
+            int satisfaction = random.nextInt(1, 6);
+            peopleSeated[i].setSatisfactionLevel(satisfaction);
+            totalSatisfaction += satisfaction;
+            if (message) {
+                System.out.println("- Cliente " + (i + 1) + " dejó la mesa con una satisfacción de " + satisfaction + "/5");
+            }
+            peopleSeated[i] = null;
+
+        }
+        this.occupied = false;
+        this.occupiedSeats = 0;
     }
 }

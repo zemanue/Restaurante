@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
+    private static ArrayList<Table> tablesFor2 = new ArrayList<>();
+    private static ArrayList<Table> tablesFor4 = new ArrayList<>();
+    private static ArrayList<Table> tablesFor6 = new ArrayList<>();
+    private static ArrayList<Table> tablesFor8Plus = new ArrayList<>();
 
     private static int occupiedTables = 0;
     private static int totalCustomers = 0;
@@ -42,7 +46,7 @@ public class Restaurant {
         Table table10 = new Table(10, 6);
         Table table11 = new Table(11);
         Table table12 = new Table(12);
-        Table table13 = new Table(13, 4);
+        Table table13 = new Table(13, 6);
         Table table14 = new Table(14, 4);
         Table table15 = new Table(15, 8);
         Table table16 = new Table(16, 12);
@@ -63,6 +67,18 @@ public class Restaurant {
         tableList.add(table14);
         tableList.add(table15);
         tableList.add(table16);
+
+        for (Table table : tableList) {
+            if (table.getMaxCapacity() <=2) {
+                tablesFor2.add(table);
+            } else if (table.getMaxCapacity() <=4) {
+                tablesFor4.add(table);
+            } else if (table.getMaxCapacity() <=6) {
+                tablesFor6.add(table);
+            } else {
+                tablesFor8Plus.add(table);
+            }
+        }
     }
 
     public static void customersArrive() {
@@ -71,9 +87,20 @@ public class Restaurant {
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
 
+        ArrayList<Table> suitableTables = null;
+        if (people <= 2) {
+            suitableTables = tablesFor2;
+        } else if (people <= 4) {
+            suitableTables = tablesFor4;
+        } else if (people <= 6) {
+            suitableTables = tablesFor6;
+        } else {
+            suitableTables = tablesFor8Plus;
+        }
+
         boolean tableAssigned = false;
-        for (Table table : tableList) {
-            if (!table.isOccupied() && table.getMaxCapacity() >= people) {
+        for (Table table : suitableTables) {
+            if (!table.isOccupied()) {
                 table.occupyTable(people);
                 tableAssigned = true;
                 occupiedTables++;

@@ -7,7 +7,7 @@ public class Table {
     private int maxCapacity;
     private Customer[] peopleSeated;
     private int occupiedSeats;
-    private static int totalSatisfaction = 0;
+    private int tableSatisfaction = 0;
     
     public int getTableNumber() {
         return tableNumber;
@@ -44,11 +44,11 @@ public class Table {
         this.occupiedSeats = occupiedSeats;
     }
 
-    public static int getTotalSatisfaction() {
-        return totalSatisfaction;
+    public int getTableSatisfaction() {
+        return tableSatisfaction;
     }
-    public static void setTotalSatisfaction(int totalSatisfaction) {
-        Table.totalSatisfaction = totalSatisfaction;
+    public void setTableSatisfaction(int totalSatisfaction) {
+        this.tableSatisfaction = totalSatisfaction;
     }    
 
     //Constructor with maxCapacity by default = 2;
@@ -94,7 +94,7 @@ public class Table {
         for (int i = 0; i < occupiedSeats; i++) {
             int satisfaction = random.nextInt(1, 6);
             peopleSeated[i].setSatisfactionLevel(satisfaction);
-            totalSatisfaction += satisfaction;
+            tableSatisfaction += satisfaction;
             if (message) {
                 System.out.println("- Cliente " + (i + 1) + " dejó la mesa con una satisfacción de " + satisfaction + "/5");
             }

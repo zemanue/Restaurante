@@ -7,6 +7,7 @@ public class Restaurant {
 
     private static int occupiedTables = 0;
     private static int totalCustomers = 0;
+    private static int totalSatisfaction = 0;
         
     private static int openingHour = 12;
     private static int currentHour = 12;
@@ -22,14 +23,14 @@ public class Restaurant {
             advanceTime(1);
         }
 
-        freeAllTables();
         System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
+        freeAllTables();
         System.out.println("Restaurante cerrado. ¡Hasta mañana!");
         showStatistics();
     }
 
     public static void initializeTables() {
-        Table table1 = new Table(1, 12);
+        Table table1 = new Table(1);
         Table table2 = new Table(2);
         Table table3 = new Table(3);
         Table table4 = new Table(4);
@@ -41,10 +42,10 @@ public class Restaurant {
         Table table10 = new Table(10, 6);
         Table table11 = new Table(11);
         Table table12 = new Table(12);
-        Table table13 = new Table(13);
+        Table table13 = new Table(13, 4);
         Table table14 = new Table(14, 4);
-        Table table15 = new Table(15, 4);
-        Table table16 = new Table(16, 8);
+        Table table15 = new Table(15, 8);
+        Table table16 = new Table(16, 12);
 
         tableList.add(table1);
         tableList.add(table2);
@@ -90,15 +91,19 @@ public class Restaurant {
     }
 
     public static void freeAllTables() {
-        System.out.println("Todas las mesas han sido liberadas.");
         for (Table table : tableList) {
-            table.freeTable(false);
+            table.freeTable(true);
+            totalSatisfaction += table.getTableSatisfaction();
         }
+        System.out.println("Todas las mesas han sido liberadas.");
     }
 
     public static void showStatistics() {
         System.out.println("Estadísticas:");
-        System.out.println("Mesas ocupadas durante el día: " + occupiedTables);
-        System.out.println("Clientes atendidos: " + totalCustomers);
+        System.out.println("- Mesas ocupadas durante el día: " + occupiedTables);
+        System.out.println("- Clientes atendidos: " + totalCustomers);
+        double averageSatisfaction = (double) totalSatisfaction / totalCustomers;
+        averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
+        System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
     }
 }

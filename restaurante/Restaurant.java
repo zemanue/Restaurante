@@ -69,11 +69,11 @@ public class Restaurant {
         tableList.add(table16);
 
         for (Table table : tableList) {
-            if (table.getMaxCapacity() <=2) {
+            if (table.getMaxCapacity() <= 2) {
                 tablesFor2.add(table);
-            } else if (table.getMaxCapacity() <=4) {
+            } else if (table.getMaxCapacity() <= 4) {
                 tablesFor4.add(table);
-            } else if (table.getMaxCapacity() <=6) {
+            } else if (table.getMaxCapacity() <= 6) {
                 tablesFor6.add(table);
             } else {
                 tablesFor8Plus.add(table);
@@ -86,7 +86,10 @@ public class Restaurant {
         System.out.println("Son las " + currentHour + ":00. Llegan nuevos clientes.");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
+        findSuitableTable(people);
+    }
 
+    public static void findSuitableTable(int people) {
         ArrayList<Table> suitableTables = null;
         if (people <= 2) {
             suitableTables = tablesFor2;

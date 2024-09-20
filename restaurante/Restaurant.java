@@ -68,6 +68,37 @@ public class Restaurant {
         tableList.add(table15);
         tableList.add(table16);
 
+        //Tables with maxCapacity <= 2
+        for (Table table : tableList) {
+            if (table.getMaxCapacity() <= 2) {
+                tablesFor2.add(table); //Add to tablesFor2 list
+            }
+        }
+
+        //Tables with maxCapacity <= 4 
+        for (Table table : tableList) {
+            if (table.getMaxCapacity() > 2 && table.getMaxCapacity() <= 4) {
+                tablesFor4.add(table); //Add to tablesFor4 list
+                tablesFor2.add(table); //And add also to tablesFor2 list, after the smaller tables.
+            }
+        }
+
+        //Tables with maxCapacity <= 6 
+        for (Table table : tableList) {
+            if (table.getMaxCapacity() > 4 && table.getMaxCapacity() <= 6) {
+                tablesFor6.add(table); //Add to tablesFor6 list
+                tablesFor4.add(table); //And add also to tablesFor4 list, after the smaller tables.
+            }
+        }
+        
+        //Tables with maxCapacity > 6 
+        for (Table table : tableList) {
+            if (table.getMaxCapacity() > 6) {
+                tablesFor8Plus.add(table); //Add to tablesFor8Plus list
+                tablesFor6.add(table); //And add also to tablesFor6 list, after the smaller tables.
+            }
+        }
+
         for (Table table : tableList) {
             if (table.getMaxCapacity() <= 2) {
                 tablesFor2.add(table);
@@ -111,6 +142,19 @@ public class Restaurant {
                 break;
             }
         }
+
+        if (!tableAssigned && people <= 2) {
+            for (Table table : tablesFor4) {
+                if (!table.isOccupied()) {
+                    table.occupyTable(people);
+                    tableAssigned = true;
+                    occupiedTables++;
+                    totalCustomers += people;
+                    break;
+                }
+            }
+        }
+
         if (!tableAssigned) {
             System.out.println("'Lo siento, no quedan mesas disponibles para " + people + " personas. Vuelvan más tarde.'");
         }

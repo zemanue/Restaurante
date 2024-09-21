@@ -134,24 +134,12 @@ public class Restaurant {
 
         boolean tableAssigned = false;
         for (Table table : suitableTables) {
-            if (!table.isOccupied()) {
+            if (!table.isOccupied() && table.getMaxCapacity() >= people) {
                 table.occupyTable(people);
                 tableAssigned = true;
                 occupiedTables++;
                 totalCustomers += people;
                 break;
-            }
-        }
-
-        if (!tableAssigned && people <= 2) {
-            for (Table table : tablesFor4) {
-                if (!table.isOccupied()) {
-                    table.occupyTable(people);
-                    tableAssigned = true;
-                    occupiedTables++;
-                    totalCustomers += people;
-                    break;
-                }
             }
         }
 

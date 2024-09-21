@@ -8,7 +8,9 @@ public class Table {
     private Customer[] peopleSeated;
     private int occupiedSeats;
     private int tableSatisfaction = 0;
+    private int timeOccupied = 0;
     
+    //GETTERS AND SETTERS
     public int getTableNumber() {
         return tableNumber;
     }
@@ -49,7 +51,14 @@ public class Table {
     }
     public void setTableSatisfaction(int totalSatisfaction) {
         this.tableSatisfaction = totalSatisfaction;
-    }    
+    }
+    
+    public int getTimeOccupied() {
+        return timeOccupied;
+    }
+    public void setTimeOccupied(int timeOccupied) {
+        this.timeOccupied = timeOccupied;
+    }
 
     //Constructor with maxCapacity by default = 2;
     public Table(int tableNumber) {
@@ -82,8 +91,18 @@ public class Table {
             for (int i = 0; i < peopleSeated; i++) {
                 this.peopleSeated[i] = new Customer();
             }
+            this.timeOccupied = 0;
             System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas.");
             return true;
+        }
+    }
+
+    public void incrementTimeOccupied() {
+        if (occupied) {
+            timeOccupied++;
+            if (timeOccupied >= random.nextInt(1,5)) {
+                freeTable(true);
+            }            
         }
     }
 
@@ -103,5 +122,6 @@ public class Table {
         }
         this.occupied = false;
         this.occupiedSeats = 0;
+        this.timeOccupied = 0;
     }
 }

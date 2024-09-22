@@ -108,6 +108,10 @@ public class Table {
     }
 
     public void freeTable(boolean message) {
+        if (!occupied) {
+            System.out.println("La mesa " + tableNumber + " ya está libre.");
+            return;
+        } 
         if (message) {
             System.out.println("Mesa " + tableNumber + " liberada.");
         }
@@ -124,13 +128,19 @@ public class Table {
             peopleSeated[i] = null;
         }
         if (message && occupied) {
-            double averageSatisfaction = (double) tableSatisfaction / people;
-            averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
-            System.out.println("- Satisfacción media: " + averageSatisfaction);
+            System.out.println("- Satisfacción media: " + calculateAverageSatisfaction() + "/5");
         }
         this.occupied = false;
         this.occupiedSeats = 0;
         this.timeOccupied = 0;
         this.tableSatisfaction = 0;
+    }
+
+    public double calculateAverageSatisfaction() {
+        if (occupiedSeats > 0) {
+            double averageSatisfaction = (double) tableSatisfaction / occupiedSeats;
+            return Math.round(averageSatisfaction * 10.0) / 10.0;
+        }
+        return 0.0; 
     }
 }

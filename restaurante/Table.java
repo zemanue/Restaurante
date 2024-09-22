@@ -8,6 +8,7 @@ public class Table {
     private Customer[] peopleSeated;
     private int occupiedSeats;
     private int tableSatisfaction = 0;
+    private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
     
     //GETTERS AND SETTERS
@@ -46,11 +47,11 @@ public class Table {
         this.occupiedSeats = occupiedSeats;
     }
 
-    public int getTableSatisfaction() {
-        return tableSatisfaction;
+    public static int getSumOfTablesSatisfaction() {
+        return sumOfTablesSatisfaction;
     }
-    public void setTableSatisfaction(int totalSatisfaction) {
-        this.tableSatisfaction = totalSatisfaction;
+    public static void setSumOfTablesSatisfaction(int totalSatisfaction) {
+        Table.sumOfTablesSatisfaction = totalSatisfaction;
     }
     
     public int getTimeOccupied() {
@@ -110,18 +111,26 @@ public class Table {
         if (message) {
             System.out.println("Mesa " + tableNumber + " liberada.");
         }
+        int people = 0;
         for (int i = 0; i < occupiedSeats; i++) {
             int satisfaction = random.nextInt(1, 6);
             peopleSeated[i].setSatisfactionLevel(satisfaction);
             tableSatisfaction += satisfaction;
+            sumOfTablesSatisfaction += satisfaction;
+            people += 1;
             if (message) {
                 System.out.println("- Cliente " + (i + 1) + " dejó la mesa con una satisfacción de " + satisfaction + "/5");
             }
             peopleSeated[i] = null;
-
+        }
+        if (message && occupied) {
+            double averageSatisfaction = (double) tableSatisfaction / people;
+            averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
+            System.out.println("- Satisfacción media: " + averageSatisfaction);
         }
         this.occupied = false;
         this.occupiedSeats = 0;
         this.timeOccupied = 0;
+        this.tableSatisfaction = 0;
     }
 }

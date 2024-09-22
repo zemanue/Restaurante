@@ -24,10 +24,7 @@ public class Restaurant {
 
         for (int i = openingHour; i < closingHour; i++) {
             System.out.println("Son las " + currentHour + ":00. ");
-            customersArrive();
-            customersArrive();
-            customersArrive();
-            customersArrive();
+            customersArrive(3);
             advanceTime(1);
         }
 
@@ -116,12 +113,18 @@ public class Restaurant {
         }
     }
 
-    public static void customersArrive() {
+    public static void newCustomerGroup() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Llegan nuevos clientes.");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
         findSuitableTable(people);
+    }
+
+    public static void customersArrive(int numArrivalsPerHour) {
+        for (int i = 0; i < numArrivalsPerHour; i++) {
+            newCustomerGroup();
+        }
     }
 
     public static void findSuitableTable(int people) {

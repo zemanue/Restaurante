@@ -32,6 +32,7 @@ public class Restaurant {
         freeAllTables();
         System.out.println("Restaurante cerrado. ¡Hasta mañana!");
         showStatistics();
+        resetStatistics();
     }
 
     public static void initializeTables() {
@@ -167,8 +168,8 @@ public class Restaurant {
     public static void freeAllTables() {
         for (Table table : tableList) {
             table.freeTable(true);
-            totalSatisfaction += table.getTableSatisfaction();
         }
+        totalSatisfaction = Table.getSumOfTablesSatisfaction();
         System.out.println("Todas las mesas han sido liberadas.");
     }
 
@@ -179,5 +180,12 @@ public class Restaurant {
         double averageSatisfaction = (double) totalSatisfaction / totalCustomers;
         averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
         System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
+    }
+
+    public static void resetStatistics() {
+        occupiedTables = 0;
+        totalCustomers = 0;
+        totalSatisfaction = 0;
+        Table.setSumOfTablesSatisfaction(0);
     }
 }

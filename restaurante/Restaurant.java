@@ -24,7 +24,7 @@ public class Restaurant {
         Scanner sc = new Scanner(System.in);
         while (keepSimulating) {
             System.out.println("Día " + day);
-            initializeTables();
+            initializeTables(new int[]{2, 2, 2, 2, 2, 4, 4, 4, 2, 6, 2, 2, 6, 4, 8, 12});
             System.out.println("Restaurante abierto");
     
             for (int i = openingHour; i < closingHour; i++) {
@@ -52,40 +52,11 @@ public class Restaurant {
         sc.close();
     }
 
-    public static void initializeTables() {
-        Table table1 = new Table(1);
-        Table table2 = new Table(2);
-        Table table3 = new Table(3);
-        Table table4 = new Table(4);
-        Table table5 = new Table(5);
-        Table table6 = new Table(6, 4);
-        Table table7 = new Table(7, 4);
-        Table table8 = new Table(8, 4);
-        Table table9 = new Table(9);
-        Table table10 = new Table(10, 6);
-        Table table11 = new Table(11);
-        Table table12 = new Table(12);
-        Table table13 = new Table(13, 6);
-        Table table14 = new Table(14, 4);
-        Table table15 = new Table(15, 8);
-        Table table16 = new Table(16, 12);
+    public static void initializeTables(int[] capacities) {
+        for (int i = 0; i < capacities.length; i++) {
+            tableList.add(new Table(i + 1, capacities[i]));
+        }        
 
-        tableList.add(table1);
-        tableList.add(table2);
-        tableList.add(table3);
-        tableList.add(table4);
-        tableList.add(table5);
-        tableList.add(table6);
-        tableList.add(table7);
-        tableList.add(table8);
-        tableList.add(table9);
-        tableList.add(table10);
-        tableList.add(table11);
-        tableList.add(table12);
-        tableList.add(table13);
-        tableList.add(table14);
-        tableList.add(table15);
-        tableList.add(table16);
 
         //Tables with maxCapacity <= 2
         for (Table table : tableList) {

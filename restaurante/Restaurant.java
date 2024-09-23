@@ -14,25 +14,40 @@ public class Restaurant {
     private static int totalSatisfaction = 0;
         
     private static int openingHour = 13;
-    private static int currentHour = 13;
+    private static int currentHour = openingHour;
     private static int closingHour = 21;
+    private static int day = 1;
     
     public static void main(String[] args) {
 
-        initializeTables();
-        System.out.println("Restaurante abierto");
-
-        for (int i = openingHour; i < closingHour; i++) {
-            System.out.println("Son las " + currentHour + ":00. ");
-            customersArrive(3);
-            advanceTime(1);
+        boolean keepSimulating = true;
+        Scanner sc = new Scanner(System.in);
+        while (keepSimulating) {
+            System.out.println("Día " + day);
+            initializeTables();
+            System.out.println("Restaurante abierto");
+    
+            for (int i = openingHour; i < closingHour; i++) {
+                System.out.println("Son las " + currentHour + ":00. ");
+                customersArrive(3);
+                advanceTime(1);
+            }
+    
+            System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
+            freeAllTables();
+            System.out.println("Restaurante cerrado. ¡Hasta mañana!");
+            showStatistics();
+            resetStatistics();
+            System.out.println("¿Quieres avanzar al próximo día?");  
+            String response = sc.nextLine();
+            if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("si")) {
+                System.out.println("Avanzando al próximo día");
+                day++;
+            } else {
+                System.out.println("Saliendo de la simulación. ¡Vuelve cuando quieras!");
+                keepSimulating = false;
+            }
         }
-
-        System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
-        freeAllTables();
-        System.out.println("Restaurante cerrado. ¡Hasta mañana!");
-        showStatistics();
-        resetStatistics();
     }
 
     public static void initializeTables() {
@@ -186,6 +201,7 @@ public class Restaurant {
         occupiedTables = 0;
         totalCustomers = 0;
         totalSatisfaction = 0;
+        currentHour = openingHour;
         Table.setSumOfTablesSatisfaction(0);
     }
 }

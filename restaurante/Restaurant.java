@@ -38,6 +38,7 @@ public class Restaurant {
             System.out.println("Restaurante cerrado. ¡Hasta mañana!");
             showStatistics();
             resetStatistics();
+            resetTableLists();
             System.out.println("¿Quieres avanzar al próximo día?");  
             String response = sc.nextLine();
             if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("si")) {
@@ -48,6 +49,7 @@ public class Restaurant {
                 keepSimulating = false;
             }
         }
+        sc.close();
     }
 
     public static void initializeTables() {
@@ -191,5 +193,13 @@ public class Restaurant {
         totalSatisfaction = 0;
         currentHour = openingHour;
         Table.setSumOfTablesSatisfaction(0);
+    }
+
+    public static void resetTableLists() {
+        tableList.clear();
+        tablesFor2.clear();
+        tablesFor4.clear();
+        tablesFor6.clear();
+        tablesFor8Plus.clear();
     }
 }

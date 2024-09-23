@@ -115,18 +115,6 @@ public class Restaurant {
                 tablesFor6.add(table); //And add also to tablesFor6 list, after the smaller tables.
             }
         }
-
-        for (Table table : tableList) {
-            if (table.getMaxCapacity() <= 2) {
-                tablesFor2.add(table);
-            } else if (table.getMaxCapacity() <= 4) {
-                tablesFor4.add(table);
-            } else if (table.getMaxCapacity() <= 6) {
-                tablesFor6.add(table);
-            } else {
-                tablesFor8Plus.add(table);
-            }
-        }
     }
 
     public static void newCustomerGroup() {

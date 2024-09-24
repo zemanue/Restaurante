@@ -4,36 +4,43 @@ public class Customer {
     Random random = new Random();
     private int satisfactionLevel;
     private int patienceLevel;
-    //private boolean prefersWindow;
-    
+    // private boolean prefersWindow;
+
     public Customer() {
         this.patienceLevel = random.nextInt(1, 11);
-        //this.prefersWindow = random.nextBoolean();
+        // this.prefersWindow = random.nextBoolean();
     }
-    public Customer(int patienceLevel/*, boolean prefersWindow*/) { 
+
+    public Customer(int patienceLevel/* , boolean prefersWindow */) {
         this.patienceLevel = patienceLevel;
-        //this.prefersWindow = prefersWindow; 
+        // this.prefersWindow = prefersWindow;
     }
 
     public int getSatisfactionLevel() {
         return satisfactionLevel;
     }
+
     public void setSatisfactionLevel(int satisfactionLevel) {
         this.satisfactionLevel = satisfactionLevel;
     }
 
-    public int getPatienceLevel() { 
-        return patienceLevel; 
+    public int getPatienceLevel() {
+        return patienceLevel;
     }
+
     public void setPatienceLevel(int patienceLevel) {
         this.patienceLevel = patienceLevel;
     }
 
-    /*public boolean getprefersWindow() {
-        return prefersWindow;
-    }*/
-    /*public void setprefersWindow(boolean prefersWindow) {
-        this.prefersWindow = prefersWindow;
-    } */
+    /*
+     * public boolean getprefersWindow() {
+     * return prefersWindow;
+     * }
+     */
+    /*
+     * public void setprefersWindow(boolean prefersWindow) {
+     * this.prefersWindow = prefersWindow;
+     * }
+     */
 
 }

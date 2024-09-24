@@ -10,11 +10,12 @@ public class Table {
     private int tableSatisfaction = 0;
     private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
-    
-    //GETTERS AND SETTERS
+
+    // GETTERS AND SETTERS
     public int getTableNumber() {
         return tableNumber;
     }
+
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
@@ -22,6 +23,7 @@ public class Table {
     public boolean isOccupied() {
         return occupied;
     }
+
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
@@ -29,6 +31,7 @@ public class Table {
     public int getMaxCapacity() {
         return maxCapacity;
     }
+
     public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
@@ -36,6 +39,7 @@ public class Table {
     public Customer[] getPeopleSeated() {
         return peopleSeated;
     }
+
     public void setPeopleSeated(Customer[] peopleSeated) {
         this.peopleSeated = peopleSeated;
     }
@@ -43,6 +47,7 @@ public class Table {
     public int getOccupiedSeats() {
         return occupiedSeats;
     }
+
     public void setOccupiedSeats(int occupiedSeats) {
         this.occupiedSeats = occupiedSeats;
     }
@@ -50,18 +55,20 @@ public class Table {
     public static int getSumOfTablesSatisfaction() {
         return sumOfTablesSatisfaction;
     }
+
     public static void setSumOfTablesSatisfaction(int totalSatisfaction) {
         Table.sumOfTablesSatisfaction = totalSatisfaction;
     }
-    
+
     public int getTimeOccupied() {
         return timeOccupied;
     }
+
     public void setTimeOccupied(int timeOccupied) {
         this.timeOccupied = timeOccupied;
     }
 
-    //Constructor with maxCapacity by default = 2;
+    // Constructor with maxCapacity by default = 2;
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
         this.occupied = false;
@@ -69,7 +76,7 @@ public class Table {
         this.peopleSeated = new Customer[this.maxCapacity];
         this.occupiedSeats = 0;
     }
-    
+
     public Table(int tableNumber, int maxCapacity) {
         this.tableNumber = tableNumber;
         this.maxCapacity = maxCapacity;
@@ -83,17 +90,18 @@ public class Table {
             System.out.println("Error: El número de personas debe ser mayor a 0");
             return false;
         } else if (peopleSeated > maxCapacity) {
-            System.out.println("Mesa no adjudicada: La mesa " + tableNumber + " tiene capacidad máxima para " + maxCapacity + " personas.");
+            System.out.println("Mesa no adjudicada: La mesa " + tableNumber + " tiene capacidad máxima para "
+                    + maxCapacity + " personas.");
             return false;
-        }
-        else {
+        } else {
             this.occupied = true;
             this.occupiedSeats = peopleSeated;
             for (int i = 0; i < peopleSeated; i++) {
                 this.peopleSeated[i] = new Customer();
             }
             this.timeOccupied = 0;
-            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: " + maxCapacity + ").");
+            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: "
+                    + maxCapacity + ").");
             return true;
         }
     }
@@ -101,9 +109,9 @@ public class Table {
     public void incrementTimeOccupied() {
         if (occupied) {
             timeOccupied++;
-            if (timeOccupied >= random.nextInt(1,5)) {
+            if (timeOccupied >= random.nextInt(1, 5)) {
                 freeTable(true);
-            }            
+            }
         }
     }
 
@@ -111,7 +119,7 @@ public class Table {
         if (!occupied) {
             System.out.println("La mesa " + tableNumber + " ya está libre.");
             return;
-        } 
+        }
         if (message) {
             System.out.println("Mesa " + tableNumber + " liberada.");
         }
@@ -121,7 +129,8 @@ public class Table {
             tableSatisfaction += satisfaction;
             sumOfTablesSatisfaction += satisfaction;
             if (message) {
-                System.out.println("- Cliente " + (i + 1) + " dejó la mesa con una satisfacción de " + satisfaction + "/5");
+                System.out.println(
+                        "- Cliente " + (i + 1) + " dejó la mesa con una satisfacción de " + satisfaction + "/5");
             }
             peopleSeated[i] = null;
         }
@@ -139,6 +148,6 @@ public class Table {
             double averageSatisfaction = (double) tableSatisfaction / occupiedSeats;
             return Math.round(averageSatisfaction * 10.0) / 10.0;
         }
-        return 0.0; 
+        return 0.0;
     }
 }

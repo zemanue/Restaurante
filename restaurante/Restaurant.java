@@ -80,7 +80,6 @@ public class Restaurant {
             //People can't seat in tables with a max capacity > people + 2
             if (!table.isOccupied() && table.getMaxCapacity() >= people && table.getMaxCapacity() <= people + 2) {
                 table.occupyTable(people);
-                System.out.println("Mesa " + table.getTableNumber() + " asignada para " + people + " personas (capacidad máxima: " + table.getMaxCapacity() + ").");
                 occupiedTables++;
                 totalCustomers += people;
                 return;

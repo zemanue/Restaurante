@@ -93,7 +93,7 @@ public class Table {
                 this.peopleSeated[i] = new Customer();
             }
             this.timeOccupied = 0;
-            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas.");
+            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: " + maxCapacity + ").");
             return true;
         }
     }

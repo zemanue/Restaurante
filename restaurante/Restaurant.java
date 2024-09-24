@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class Restaurant {
 
@@ -16,6 +13,8 @@ public class Restaurant {
     private static int currentHour = openingHour;
     private static int closingHour = 21;
     private static int day = 1;
+
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
@@ -69,10 +68,19 @@ public class Restaurant {
     }
 
     public static void newCustomerGroup() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Llegan nuevos clientes.");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
-        int people = sc.nextInt();
+        int people = 0;
+        while (true) {
+            try {
+                people = sc.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Debes ingresar un número entero.");
+                System.out.println("¿Cuántas personas son?");
+                sc.next();
+            }
+        }
         findSuitableTable(people);
     }
 
@@ -139,7 +147,7 @@ public class Restaurant {
         System.out.println("Estadísticas:");
         System.out.println("- Mesas ocupadas durante el día: " + occupiedTables);
         System.out.println("- Clientes atendidos: " + totalCustomers);
-        double averageSatisfaction = (double) totalSatisfaction / totalCustomers;
+        double averageSatisfaction = totalCustomers > 0 ? (double) totalSatisfaction / totalCustomers : 0;
         averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
         System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
     }

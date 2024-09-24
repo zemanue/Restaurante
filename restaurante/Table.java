@@ -140,7 +140,7 @@ public class Table {
             this.occupiedSeats = customerGroup.size();
             this.peopleSeated = customerGroup.toArray(new Customer[customerGroup.size()]);
             this.timeOccupied = 0;
-            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: "
+            System.out.println("Mesa " + tableNumber + " ocupada por " + customerGroup.size() + " personas (capacidad máxima: "
                     + maxCapacity + ", ventana: " + nextToWindow + ").");
             return true;
         }
@@ -151,6 +151,8 @@ public class Table {
             timeOccupied++;
             if (timeOccupied >= random.nextInt(1, 5)) {
                 freeTable(true);
+            } else {
+                System.out.println("La mesa " + tableNumber + " sigue sentada.");
             }
         }
     }

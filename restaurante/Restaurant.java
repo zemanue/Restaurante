@@ -23,7 +23,7 @@ public class Restaurant {
         Scanner sc = new Scanner(System.in);
         while (keepSimulating) {
             System.out.println("Día " + day);
-            initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 2, 6, 2, 2, 6, 4, 8, 12 },
+            initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 10, 6, 2, 2, 6, 4, 8, 12 },
                     new boolean[] { false, false, false, true, true, true, false, false, true, true, false, false,
                             false, true, true, true });
             System.out.println("Restaurante abierto");
@@ -62,18 +62,18 @@ public class Restaurant {
         Collections.sort(tableListCapacityOrder, Comparator.comparingInt(Table::getMaxCapacity));
     }
 
+    public static void customersArrive(int numArrivalsPerHour) {
+        for (int i = 0; i < numArrivalsPerHour; i++) {
+            newCustomerGroup();
+        }
+    }
+
     public static void newCustomerGroup() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Llegan nuevos clientes.");
         System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
         int people = sc.nextInt();
         findSuitableTable(people);
-    }
-
-    public static void customersArrive(int numArrivalsPerHour) {
-        for (int i = 0; i < numArrivalsPerHour; i++) {
-            newCustomerGroup();
-        }
     }
 
     public static void findSuitableTable(int people) {
@@ -87,7 +87,7 @@ public class Restaurant {
             }
         }
         // Try to assign a table next to the window (if half of the customers or more prefer window)
-        if (customerPrefersWindow * 2 >= people) {
+        if (customerPrefersWindow >= (people / 2)) {
             System.out.println("Los clientes prefieren una mesa junto a la ventana. Buscando...");
             for (Table table : tableListCapacityOrder) {
                 if (!table.isOccupied()
@@ -95,7 +95,8 @@ public class Restaurant {
                         && table.getMaxCapacity() <= people + 2
                         && table.isNextToWindow()) {
                     
-                    System.out.println("Mesa junto a la ventana encontrada.");        table.occupyTable(people);
+                    System.out.println("Mesa junto a la ventana encontrada.");        
+                    table.occupyTable(customerGroup);
                     occupiedTables++;
                     totalCustomers += people;
                     return;
@@ -108,7 +109,7 @@ public class Restaurant {
             if (!table.isOccupied()
                     && table.getMaxCapacity() >= people
                     && table.getMaxCapacity() <= people + 2) {
-                table.occupyTable(people);
+                table.occupyTable(customerGroup);
                 occupiedTables++;
                 totalCustomers += people;
                 return;

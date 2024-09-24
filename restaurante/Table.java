@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Table {
     Random random = new Random();
@@ -119,6 +120,25 @@ public class Table {
             for (int i = 0; i < peopleSeated; i++) {
                 this.peopleSeated[i] = new Customer();
             }
+            this.timeOccupied = 0;
+            System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: "
+                    + maxCapacity + ", ventana: " + nextToWindow + ").");
+            return true;
+        }
+    }
+
+    public boolean occupyTable(ArrayList<Customer> customerGroup) {
+        if (customerGroup.size() <= 0) {
+            System.out.println("Error: El número de personas debe ser mayor a 0");
+            return false;
+        } else if (customerGroup.size() > maxCapacity) {
+            System.out.println("Mesa no adjudicada: La mesa " + tableNumber + " tiene capacidad máxima para "
+                    + maxCapacity + " personas.");
+            return false;
+        } else {
+            this.occupied = true;
+            this.occupiedSeats = customerGroup.size();
+            this.peopleSeated = customerGroup.toArray(new Customer[customerGroup.size()]);
             this.timeOccupied = 0;
             System.out.println("Mesa " + tableNumber + " ocupada por " + peopleSeated + " personas (capacidad máxima: "
                     + maxCapacity + ", ventana: " + nextToWindow + ").");

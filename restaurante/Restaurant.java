@@ -77,9 +77,34 @@ public class Restaurant {
     }
 
     public static void findSuitableTable(int people) {
-
+        ArrayList<Customer> customerGroup = new ArrayList<>();
+        int customerPrefersWindow = 0;
+        for (int i = 0; i < people; i++) {
+            Customer customer = new Customer();
+            customerGroup.add(customer);
+            if (customer.getprefersWindow()) {
+                customerPrefersWindow ++;
+            }
+        }
+        // Try to assign a table next to the window (if half of the customers or more prefer window)
+        if (customerPrefersWindow * 2 >= people) {
+            System.out.println("Los clientes prefieren una mesa junto a la ventana. Buscando...");
+            for (Table table : tableListCapacityOrder) {
+                if (!table.isOccupied()
+                        && table.getMaxCapacity() >= people
+                        && table.getMaxCapacity() <= people + 2
+                        && table.isNextToWindow()) {
+                    
+                    System.out.println("Mesa junto a la ventana encontrada.");        table.occupyTable(people);
+                    occupiedTables++;
+                    totalCustomers += people;
+                    return;
+                }
+            }
+            System.out.println("No hay mesas disponibles junto a la ventana. Se buscará una libre.");
+        }
+        // If it doesn't work, a regular table will try to be assigned
         for (Table table : tableListCapacityOrder) {
-            // People can't seat in tables with a max capacity > people + 2
             if (!table.isOccupied()
                     && table.getMaxCapacity() >= people
                     && table.getMaxCapacity() <= people + 2) {

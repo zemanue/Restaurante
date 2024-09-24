@@ -23,7 +23,9 @@ public class Restaurant {
         Scanner sc = new Scanner(System.in);
         while (keepSimulating) {
             System.out.println("Día " + day);
-            initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 2, 6, 2, 2, 6, 4, 8, 12 });
+            initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 2, 6, 2, 2, 6, 4, 8, 12 },
+                    new boolean[] { false, false, false, true, true, true, false, false, true, true, false, false,
+                            false, true, true, true });
             System.out.println("Restaurante abierto");
 
             for (int i = openingHour; i < closingHour; i++) {
@@ -51,9 +53,9 @@ public class Restaurant {
         sc.close();
     }
 
-    public static void initializeTables(int[] capacities) {
+    public static void initializeTables(int[] capacities, boolean[] nextToWindow) {
         for (int i = 0; i < capacities.length; i++) {
-            tableList.add(new Table(i + 1, capacities[i]));
+            tableList.add(new Table(i + 1, capacities[i], nextToWindow[i]));
         }
 
         tableListCapacityOrder = tableList;

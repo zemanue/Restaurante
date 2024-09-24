@@ -3,6 +3,7 @@ import java.util.Random;
 public class Table {
     Random random = new Random();
     private int tableNumber;
+    private boolean nextToWindow;
     private boolean occupied;
     private int maxCapacity;
     private Customer[] peopleSeated;
@@ -18,6 +19,14 @@ public class Table {
 
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
+    }
+
+    public boolean isNextToWindow() {
+        return nextToWindow;
+    }
+
+    public void setNextToWindow(boolean nextToTheWindow) {
+        this.nextToWindow = nextToTheWindow;
     }
 
     public boolean isOccupied() {
@@ -71,6 +80,7 @@ public class Table {
     // Constructor with maxCapacity by default = 2;
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
+        this.nextToWindow = false;
         this.occupied = false;
         this.maxCapacity = 2;
         this.peopleSeated = new Customer[this.maxCapacity];
@@ -79,6 +89,16 @@ public class Table {
 
     public Table(int tableNumber, int maxCapacity) {
         this.tableNumber = tableNumber;
+        this.nextToWindow = false;
+        this.maxCapacity = maxCapacity;
+        this.occupied = false;
+        this.peopleSeated = new Customer[maxCapacity];
+        this.occupiedSeats = 0;
+    }
+
+    public Table(int tableNumber, int maxCapacity, boolean nextToTheWindow) {
+        this.tableNumber = tableNumber;
+        this.nextToWindow = nextToTheWindow;
         this.maxCapacity = maxCapacity;
         this.occupied = false;
         this.peopleSeated = new Customer[maxCapacity];

@@ -1,13 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
-    private static ArrayList<Table> tablesFor2 = new ArrayList<>();
-    private static ArrayList<Table> tablesFor4 = new ArrayList<>();
-    private static ArrayList<Table> tablesFor6 = new ArrayList<>();
-    private static ArrayList<Table> tablesFor8Plus = new ArrayList<>();
+    private static ArrayList<Table> tableListCapacityOrder = new ArrayList<>();
 
     private static int occupiedTables = 0;
     private static int totalCustomers = 0;
@@ -55,39 +54,10 @@ public class Restaurant {
     public static void initializeTables(int[] capacities) {
         for (int i = 0; i < capacities.length; i++) {
             tableList.add(new Table(i + 1, capacities[i]));
-        }        
-
-
-        //Tables with maxCapacity <= 2
-        for (Table table : tableList) {
-            if (table.getMaxCapacity() <= 2) {
-                tablesFor2.add(table); //Add to tablesFor2 list
-            }
         }
 
-        //Tables with maxCapacity <= 4 
-        for (Table table : tableList) {
-            if (table.getMaxCapacity() > 2 && table.getMaxCapacity() <= 4) {
-                tablesFor4.add(table); //Add to tablesFor4 list
-                tablesFor2.add(table); //And add also to tablesFor2 list, after the smaller tables.
-            }
-        }
-
-        //Tables with maxCapacity <= 6 
-        for (Table table : tableList) {
-            if (table.getMaxCapacity() > 4 && table.getMaxCapacity() <= 6) {
-                tablesFor6.add(table); //Add to tablesFor6 list
-                tablesFor4.add(table); //And add also to tablesFor4 list, after the smaller tables.
-            }
-        }
-        
-        //Tables with maxCapacity > 6 
-        for (Table table : tableList) {
-            if (table.getMaxCapacity() > 6) {
-                tablesFor8Plus.add(table); //Add to tablesFor8Plus list
-                tablesFor6.add(table); //And add also to tablesFor6 list, after the smaller tables.
-            }
-        }
+        tableListCapacityOrder = tableList;
+        Collections.sort(tableListCapacityOrder, Comparator.comparingInt(Table::getMaxCapacity));
     }
 
     public static void newCustomerGroup() {
@@ -105,31 +75,18 @@ public class Restaurant {
     }
 
     public static void findSuitableTable(int people) {
-        ArrayList<Table> suitableTables = null;
-        if (people <= 2) {
-            suitableTables = tablesFor2;
-        } else if (people <= 4) {
-            suitableTables = tablesFor4;
-        } else if (people <= 6) {
-            suitableTables = tablesFor6;
-        } else {
-            suitableTables = tablesFor8Plus;
-        }
-
-        boolean tableAssigned = false;
-        for (Table table : suitableTables) {
-            if (!table.isOccupied() && table.getMaxCapacity() >= people) {
+        
+        for (Table table : tableListCapacityOrder) {
+            //People can't seat in tables with a max capacity > people + 2
+            if (!table.isOccupied() && table.getMaxCapacity() >= people && table.getMaxCapacity() <= people + 2) {
                 table.occupyTable(people);
-                tableAssigned = true;
+                System.out.println("Mesa " + table.getTableNumber() + " asignada para " + people + " personas (capacidad máxima: " + table.getMaxCapacity() + ").");
                 occupiedTables++;
                 totalCustomers += people;
-                break;
+                return;
             }
         }
-
-        if (!tableAssigned) {
-            System.out.println("'Lo siento, no quedan mesas disponibles para " + people + " personas. Vuelvan más tarde.'");
-        }
+        System.out.println("'Lo siento, no quedan mesas disponibles para " + people + " personas. Vuelvan más tarde.'");
     }
 
     public static void advanceTime(int hours) {
@@ -168,9 +125,6 @@ public class Restaurant {
 
     public static void resetTableLists() {
         tableList.clear();
-        tablesFor2.clear();
-        tablesFor4.clear();
-        tablesFor6.clear();
-        tablesFor8Plus.clear();
+        tableListCapacityOrder.clear();
     }
 }

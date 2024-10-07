@@ -152,7 +152,7 @@ public class Table {
             if (timeOccupied >= random.nextInt(1, 5)) {
                 freeTable(true);
             } else {
-                System.out.println("La mesa " + tableNumber + " sigue sentada.");
+                System.out.println("La mesa " + tableNumber + " sigue sentada. Lleva " + timeOccupied + " hora/s sentada.");
             }
         }
     }

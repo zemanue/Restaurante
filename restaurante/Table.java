@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.ArrayList;
 
-public class Table {
+public class Table implements Comparable<Table> {
     Random random = new Random();
     private int tableNumber;
     private boolean nextToWindow;
@@ -191,5 +191,10 @@ public class Table {
             return Math.round(averageSatisfaction * 10.0) / 10.0;
         }
         return 0.0;
+    }
+
+    @Override
+    public int compareTo(Table table) {
+        return this.maxCapacity - table.maxCapacity;
     }
 }

@@ -58,7 +58,10 @@ public class Restaurant {
         }
 
         tableListCapacityOrder = new ArrayList<>(tableList);
-        Collections.sort(tableListCapacityOrder, Comparator.comparingInt(Table::getMaxCapacity));
+        Collections.sort(tableListCapacityOrder);
+        for (Table table : tableListCapacityOrder) {
+            System.out.println(table.toString());
+        }
     }
 
     public static void customersArrive(int numArrivalsPerHour) {

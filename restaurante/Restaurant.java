@@ -57,7 +57,7 @@ public class Restaurant {
             tableList.add(new Table(i + 1, capacities[i], nextToWindow[i]));
         }
 
-        tableListCapacityOrder = tableList;
+        tableListCapacityOrder = new ArrayList<>(tableList);
         Collections.sort(tableListCapacityOrder, Comparator.comparingInt(Table::getMaxCapacity));
     }
 

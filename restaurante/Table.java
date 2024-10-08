@@ -119,10 +119,42 @@ public class Table implements Comparable<Table> {
             this.occupiedSeats = customerGroup.size();
             this.peopleSeated = customerGroup.toArray(new Customer[customerGroup.size()]);
             this.timeOccupied = 0;
+
+            for (Customer customer : customerGroup) {
+                int satisfaction = calculateInitialSatisfaction(customer, customerGroup.size());
+                customer.setSatisfactionLevel(satisfaction);
+            }
+
             System.out.println("Mesa " + tableNumber + " ocupada por " + customerGroup.size() + " personas (capacidad máxima: "
                     + maxCapacity + ", ventana: " + nextToWindow + ").");
             return true;
         }
+    }
+
+    public int calculateInitialSatisfaction(Customer customer, int groupSize) {
+        int satisfaction = 5;
+        
+        // If the customer prefers window and the group is seated next to the window, +1 or -1
+        if (customer.getprefersWindow()) {
+            if (this.nextToWindow) {
+                satisfaction += 1; 
+            } else {
+                satisfaction -= 1;
+            }
+        }
+    
+        // If the table is too big or too small, -1
+        if (this.getMaxCapacity() - groupSize > 2) {
+            satisfaction -= 1;
+        } else if (this.getMaxCapacity() - groupSize == 0) {
+            satisfaction -= 1;
+        }
+
+        // Satisfaction can't be bigger than 5
+        if (satisfaction > 5) {
+            satisfaction = 5;
+        }
+        return satisfaction;
     }
 
     public void incrementTimeOccupied() {
@@ -145,8 +177,7 @@ public class Table implements Comparable<Table> {
             System.out.println("Mesa " + tableNumber + " liberada.");
         }
         for (int i = 0; i < occupiedSeats; i++) {
-            int satisfaction = random.nextInt(1, 6);
-            peopleSeated[i].setSatisfactionLevel(satisfaction);
+            int satisfaction = peopleSeated[i].getSatisfactionLevel();
             tableSatisfaction += satisfaction;
             sumOfTablesSatisfaction += satisfaction;
             if (message) {

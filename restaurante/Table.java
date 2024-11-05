@@ -144,16 +144,17 @@ public class Table implements Comparable<Table> {
         }
     
         // If the table is too big or too small, -1
-        if (this.getMaxCapacity() - groupSize > 2) {
-            satisfaction -= 1;
-        } else if (this.getMaxCapacity() - groupSize == 0) {
+        if (this.getMaxCapacity() - groupSize > 2 || this.getMaxCapacity() - groupSize == 0) {
             satisfaction -= 1;
         }
 
-        // Satisfaction can't be bigger than 5
+        // Satisfaction can't be bigger than 5 or less than 1
         if (satisfaction > 5) {
             satisfaction = 5;
+        } else if (satisfaction < 1) {
+            satisfaction = 1;
         }
+
         return satisfaction;
     }
 

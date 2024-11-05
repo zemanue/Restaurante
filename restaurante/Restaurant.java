@@ -9,6 +9,8 @@ public class Restaurant {
     private static int totalCustomers = 0;
     private static int totalSatisfaction = 0;
     private static int timesWithoutTable = 0;
+    private static int windowPreference = 0;
+    private static int timesWindowPreferenceGiven = 0;
 
     private static int openingHour = 13;
     private static int currentHour = openingHour;
@@ -20,7 +22,6 @@ public class Restaurant {
     public static void main(String[] args) {
 
         boolean keepSimulating = true;
-        Scanner sc = new Scanner(System.in);
         while (keepSimulating) {
             System.out.println("Día " + day);
             initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 10, 6, 2, 2, 6, 4, 8, 12 },
@@ -92,12 +93,13 @@ public class Restaurant {
         for (int i = 0; i < people; i++) {
             Customer customer = new Customer();
             customerGroup.add(customer);
-            if (customer.getprefersWindow()) {
+            if (customer.getPrefersWindow()) {
                 customerPrefersWindow ++;
             }
         }
         // Try to assign a table next to the window (if half of the customers or more prefer window)
-        if (customerPrefersWindow >= (people / 2)) {
+        if (customerPrefersWindow >= Math.ceil(people / 2)) {
+            windowPreference++;
             System.out.println("Los clientes prefieren una mesa junto a la ventana. Buscando...");
             for (Table table : tableListCapacityOrder) {
                 if (!table.isOccupied()
@@ -105,7 +107,8 @@ public class Restaurant {
                         && table.getMaxCapacity() <= people + 2
                         && table.isNextToWindow()) {
                     
-                    System.out.println("Mesa junto a la ventana encontrada.");        
+                    System.out.println("Mesa junto a la ventana encontrada.");
+                    timesWindowPreferenceGiven++;
                     table.occupyTable(customerGroup);
                     occupiedTables++;
                     totalCustomers += people;
@@ -154,6 +157,7 @@ public class Restaurant {
         averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
         System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
         System.out.println("- Veces que un grupo de clientes se quedó sin mesa: " + timesWithoutTable);
+        System.out.println("- Preferencias de ventana dadas: " + timesWindowPreferenceGiven + "/" + windowPreference);
     }
 
     public static void resetStatistics() {
@@ -161,6 +165,8 @@ public class Restaurant {
         totalCustomers = 0;
         totalSatisfaction = 0;
         timesWithoutTable = 0;
+        windowPreference = 0;
+        timesWindowPreferenceGiven = 0;
         currentHour = openingHour;
         Table.setSumOfTablesSatisfaction(0);
     }

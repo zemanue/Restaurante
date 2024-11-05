@@ -8,6 +8,7 @@ public class Restaurant {
     private static int occupiedTables = 0;
     private static int totalCustomers = 0;
     private static int totalSatisfaction = 0;
+    private static int timesWithoutTable = 0;
 
     private static int openingHour = 13;
     private static int currentHour = openingHour;
@@ -86,6 +87,7 @@ public class Restaurant {
 
     public static void findSuitableTable(int people) {
         ArrayList<Customer> customerGroup = new ArrayList<>();
+        // Create the customers and check if they prefer the window
         int customerPrefersWindow = 0;
         for (int i = 0; i < people; i++) {
             Customer customer = new Customer();
@@ -111,6 +113,7 @@ public class Restaurant {
                 }
             }
             System.out.println("No hay mesas disponibles junto a la ventana. Se buscará una libre.");
+            timesWithoutTable++;
         }
         // If it doesn't work, a regular table will try to be assigned
         for (Table table : tableListCapacityOrder) {
@@ -150,12 +153,14 @@ public class Restaurant {
         double averageSatisfaction = totalCustomers > 0 ? (double) totalSatisfaction / totalCustomers : 0;
         averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
         System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
+        System.out.println("- Veces que un grupo de clientes se quedó sin mesa: " + timesWithoutTable);
     }
 
     public static void resetStatistics() {
         occupiedTables = 0;
         totalCustomers = 0;
         totalSatisfaction = 0;
+        timesWithoutTable = 0;
         currentHour = openingHour;
         Table.setSumOfTablesSatisfaction(0);
     }

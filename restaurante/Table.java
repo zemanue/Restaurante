@@ -135,7 +135,7 @@ public class Table implements Comparable<Table> {
         int satisfaction = 5;
         
         // If the customer prefers window and the group is seated next to the window, +1 or -1
-        if (customer.getprefersWindow()) {
+        if (customer.getPrefersWindow()) {
             if (this.nextToWindow) {
                 satisfaction += 1; 
             } else {

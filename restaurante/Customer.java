@@ -32,11 +32,11 @@ public class Customer {
         this.patienceLevel = patienceLevel;
     }
     
-    public boolean getprefersWindow() {
+    public boolean getPrefersWindow() {
         return prefersWindow;
     }
 
-    public void setprefersWindow(boolean prefersWindow) {
+    public void setPrefersWindow(boolean prefersWindow) {
         this.prefersWindow = prefersWindow;
     }    
 

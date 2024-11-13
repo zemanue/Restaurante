@@ -4,13 +4,7 @@ public class Restaurant {
 
     private static ArrayList<Table> tableList = new ArrayList<>();
     private static ArrayList<Table> tableListCapacityOrder = new ArrayList<>();
-
-    private static int occupiedTables = 0;
-    private static int totalCustomers = 0;
-    private static int totalSatisfaction = 0;
-    private static int timesWithoutTable = 0;
-    private static int windowPreference = 0;
-    private static int timesWindowPreferenceGiven = 0;
+    private static Statistics statistics = new Statistics();
 
     private static int openingHour = 13;
     private static int currentHour = openingHour;
@@ -40,16 +34,18 @@ public class Restaurant {
             System.out.println("Son las " + closingHour + ":00. Hora de cerrar el restaurante.");
             freeAllTables();
             System.out.println("Restaurante cerrado. ¡Hasta mañana!");
-            showStatistics();
-            resetStatistics();
+            statistics.show();
+            statistics.reset();
             resetTableLists();
             System.out.println("");
-            System.out.println("¿Quieres avanzar al próximo día? Escribe 's' o 'si' para avanzar, o cualquier otra letra para salir.");
+            System.out.println(
+                    "¿Quieres avanzar al próximo día? Escribe 's' o 'si' para avanzar, o cualquier otra letra para salir.");
             sc.nextLine();
             String response = sc.nextLine();
             if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("si")) {
                 System.out.println("Avanzando al próximo día");
                 day++;
+                currentHour = openingHour;
             } else {
                 System.out.println("Saliendo de la simulación. ¡Vuelve cuando quieras!");
                 keepSimulating = false;
@@ -98,29 +94,30 @@ public class Restaurant {
             Customer customer = new Customer();
             customerGroup.add(customer);
             if (customer.getPrefersWindow()) {
-                customerPrefersWindow ++;
+                customerPrefersWindow++;
             }
         }
-        // Try to assign a table next to the window (if half of the customers or more prefer window)
+        // Try to assign a table next to the window (if half of the customers or more
+        // prefer window)
         if (customerPrefersWindow >= Math.ceil(people / 2)) {
-            windowPreference++;
+            statistics.incrementWindowPreference();
             System.out.println("Los clientes prefieren una mesa junto a la ventana. Buscando...");
             for (Table table : tableListCapacityOrder) {
                 if (!table.isOccupied()
                         && table.getMaxCapacity() >= people
                         && table.getMaxCapacity() <= people + 2
                         && table.isNextToWindow()) {
-                    
+
                     System.out.println("Mesa junto a la ventana encontrada.");
-                    timesWindowPreferenceGiven++;
+                    statistics.incrementTimesWindowPreferenceGiven();
                     table.occupyTable(customerGroup);
-                    occupiedTables++;
-                    totalCustomers += people;
+                    statistics.incrementOccupiedTables();
+                    statistics.addCustomer(people);
                     return;
                 }
             }
             System.out.println("No hay mesas disponibles junto a la ventana. Se buscará una libre.");
-            timesWithoutTable++;
+            statistics.incrementTimesWithoutTable();
         }
         // If it doesn't work, a regular table will try to be assigned
         for (Table table : tableListCapacityOrder) {
@@ -128,8 +125,8 @@ public class Restaurant {
                     && table.getMaxCapacity() >= people
                     && table.getMaxCapacity() <= people + 2) {
                 table.occupyTable(customerGroup);
-                occupiedTables++;
-                totalCustomers += people;
+                statistics.incrementOccupiedTables();
+                statistics.addCustomer(people);
                 return;
             }
         }
@@ -153,32 +150,9 @@ public class Restaurant {
         for (Table table : tableList) {
             table.freeTable(true);
         }
-        totalSatisfaction = Table.getSumOfTablesSatisfaction();
+        statistics.addSatisfaction(Table.getSumOfTablesSatisfaction());
         System.out.println("Todas las mesas han sido liberadas.");
         System.out.println("");
-    }
-
-    public static void showStatistics() {
-        System.out.println("");
-        System.out.println("Estadísticas:");
-        System.out.println("- Mesas ocupadas durante el día: " + occupiedTables);
-        System.out.println("- Clientes atendidos: " + totalCustomers);
-        double averageSatisfaction = totalCustomers > 0 ? (double) totalSatisfaction / totalCustomers : 0;
-        averageSatisfaction = Math.round(averageSatisfaction * 10.0) / 10.0;
-        System.out.println("- Satisfacción media: " + averageSatisfaction + "/5");
-        System.out.println("- Veces que un grupo de clientes se quedó sin mesa: " + timesWithoutTable);
-        System.out.println("- Preferencias de ventana dadas: " + timesWindowPreferenceGiven + "/" + windowPreference);
-    }
-
-    public static void resetStatistics() {
-        occupiedTables = 0;
-        totalCustomers = 0;
-        totalSatisfaction = 0;
-        timesWithoutTable = 0;
-        windowPreference = 0;
-        timesWindowPreferenceGiven = 0;
-        currentHour = openingHour;
-        Table.setSumOfTablesSatisfaction(0);
     }
 
     public static void resetTableLists() {

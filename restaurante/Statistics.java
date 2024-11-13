@@ -4,7 +4,7 @@ public class Statistics {
     private int totalSatisfaction = 0;
     private int timesWithoutTable = 0;
     private int windowPreference = 0;
-    private int timesWindowPreferenceGiven = 0;    
+    private int timesWindowPreferenceGiven = 0;
 
     public void incrementOccupiedTables() {
         occupiedTables++;
@@ -30,7 +30,8 @@ public class Statistics {
         timesWindowPreferenceGiven++;
     }
 
-    public void showStatistics() {
+    public void show() {
+        System.out.println();
         System.out.println("Estadísticas:");
         System.out.println("- Mesas ocupadas durante el día: " + occupiedTables);
         System.out.println("- Clientes atendidos: " + totalCustomers);
@@ -47,5 +48,6 @@ public class Statistics {
         timesWithoutTable = 0;
         windowPreference = 0;
         timesWindowPreferenceGiven = 0;
+        Table.setSumOfTablesSatisfaction(0);
     }
 }

@@ -23,6 +23,7 @@ public class Restaurant {
 
         boolean keepSimulating = true;
         while (keepSimulating) {
+            System.out.println("");
             System.out.println("Día " + day);
             initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 10, 6, 2, 2, 6, 4, 8, 12 },
                     new boolean[] { false, false, false, true, true, true, false, false, true, true, false, false,
@@ -31,6 +32,7 @@ public class Restaurant {
 
             for (int i = openingHour; i < closingHour; i++) {
                 System.out.println("Son las " + currentHour + ":00. ");
+                System.out.println("");
                 customersArrive(3);
                 advanceTime(1);
             }
@@ -41,7 +43,9 @@ public class Restaurant {
             showStatistics();
             resetStatistics();
             resetTableLists();
-            System.out.println("¿Quieres avanzar al próximo día?");
+            System.out.println("");
+            System.out.println("¿Quieres avanzar al próximo día? Escribe 's' o 'si' para avanzar, o cualquier otra letra para salir.");
+            sc.nextLine();
             String response = sc.nextLine();
             if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("si")) {
                 System.out.println("Avanzando al próximo día");
@@ -71,7 +75,7 @@ public class Restaurant {
 
     public static void newCustomerGroup() {
         System.out.println("Llegan nuevos clientes.");
-        System.out.println("'¡Bienvenidos/as! ¿Cuántas personas son?'");
+        System.out.print("'¡Bienvenidos/as! ¿Cuántas personas son?' Escribe el número a continuación: ");
         int people = 0;
         while (true) {
             try {
@@ -133,23 +137,29 @@ public class Restaurant {
     }
 
     public static void advanceTime(int hours) {
+        System.out.println("Avanzamos " + hours + " hora/s. Estado de las mesas ocupadas:");
         for (Table table : tableList) {
             if (table.isOccupied()) {
                 table.incrementTimeOccupied();
             }
         }
         currentHour += hours;
+        System.out.println("");
     }
 
     public static void freeAllTables() {
+        System.out.println("");
+        System.out.println("Liberando todas las mesas...");
         for (Table table : tableList) {
             table.freeTable(true);
         }
         totalSatisfaction = Table.getSumOfTablesSatisfaction();
         System.out.println("Todas las mesas han sido liberadas.");
+        System.out.println("");
     }
 
     public static void showStatistics() {
+        System.out.println("");
         System.out.println("Estadísticas:");
         System.out.println("- Mesas ocupadas durante el día: " + occupiedTables);
         System.out.println("- Clientes atendidos: " + totalCustomers);

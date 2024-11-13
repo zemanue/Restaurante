@@ -127,6 +127,7 @@ public class Table implements Comparable<Table> {
 
             System.out.println("Mesa " + tableNumber + " ocupada por " + customerGroup.size() + " personas (capacidad máxima: "
                     + maxCapacity + ", ventana: " + nextToWindow + ").");
+            System.out.println("");
             return true;
         }
     }

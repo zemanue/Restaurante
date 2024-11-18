@@ -113,10 +113,10 @@ public class Table implements Comparable<Table> {
 
     public String showDetails() {
         StringBuilder sb = new StringBuilder();
-        sb.append("- Mesa " + tableNumber + ": ");
-        sb.append("Capacidad máxima: " + maxCapacity);
+        sb.append("Mesa " + tableNumber);
+        sb.append((occupied) ? ", ocupada por: " + occupiedSeats + " personas" : "");
+        sb.append(". Capacidad máxima: " + maxCapacity);
         sb.append((nextToWindow) ? ", Ventana" : ", No ventana");
-        sb.append((occupied) ? ". Ocupada por: " + occupiedSeats + " personas" : "");
         return sb.toString();
     }
 
@@ -125,7 +125,7 @@ public class Table implements Comparable<Table> {
             System.out.println("Error: El número de personas debe ser mayor a 0");
             return false;
         } else if (customerGroup.size() > maxCapacity) {
-            System.out.println("Mesa no adjudicada: La mesa " + tableNumber + " tiene capacidad máxima para "
+            System.out.println(this.toString() + " no adjudicada: Esta mesa tiene capacidad máxima para "
                     + maxCapacity + " personas.");
             return false;
         } else {
@@ -139,8 +139,7 @@ public class Table implements Comparable<Table> {
                 customer.setSatisfactionLevel(satisfaction);
             }
 
-            System.out.println("Mesa " + tableNumber + " ocupada por " + customerGroup.size() + " personas (capacidad máxima: "
-                    + maxCapacity + ", ventana: " + nextToWindow + ").");
+            System.out.println(this.showDetails());
             System.out.println("");
             return true;
         }

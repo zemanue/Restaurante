@@ -18,7 +18,8 @@ public class Restaurant {
 
         System.out.println();
         System.out.println("Bienvenido a la simulación de un restaurante.");
-        System.out.println("A continuación, el restaurante abrirá en su primer día, y desde las " + openingHour + ":00 hasta las " + closingHour + ":00 llegarán clientes.");
+        System.out.println("A continuación, el restaurante abrirá en su primer día, y desde las " + openingHour
+                + ":00 hasta las " + closingHour + ":00 llegarán clientes.");
         System.out.println("El usuario debe ingresar el número de personas que habrá en cada grupo de clientes, y el sistema se encargará de asignarles automáticamente para optimizar el espacio y la satisfacción.");
         System.out.println("Los clientes pueden tener preferencias, como querer sentarse junto a la ventana, y esto también influirá en la satisfacción final.");
         System.out.println("Recuerda: el sistema no permite que grupos de clientes pequeños ocupen mesas demasiado grandes, porque entiende que esto sería desperdiciar el espacio.");
@@ -39,7 +40,7 @@ public class Restaurant {
                             false, true, true, true });
             System.out.println("Hay un total de " + tableList.size() + " mesas: ");
             for (Table table : tableList) {
-                System.out.println(table.showDetails());
+                System.out.println("- " +table.showDetails());
             }
             System.out.println("Restaurante abierto");
 
@@ -97,8 +98,7 @@ public class Restaurant {
                 people = sc.nextInt();
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Error: Debes ingresar un número entero.");
-                System.out.println("¿Cuántas personas son?");
+                System.out.print("Error: Debes ingresar un número entero: ");
                 sc.next();
             }
         }
@@ -127,7 +127,7 @@ public class Restaurant {
                         && table.getMaxCapacity() <= people + 2
                         && table.isNextToWindow()) {
 
-                    System.out.println("Mesa junto a la ventana encontrada.");
+                    System.out.println("Mesa junto a la ventana encontrada: ");
                     statistics.incrementTimesWindowPreferenceGiven();
                     table.occupyTable(customerGroup);
                     statistics.incrementOccupiedTables();
@@ -137,12 +137,16 @@ public class Restaurant {
             }
             System.out.println("No hay mesas disponibles junto a la ventana. Se buscará una libre.");
             statistics.incrementTimesWithoutTable();
+        } else {
+            System.out.println("A los clientes no les importa dónde sentarse. Buscando la primera disponible...");
         }
+
         // If it doesn't work, a regular table will try to be assigned
         for (Table table : tableListCapacityOrder) {
             if (!table.isOccupied()
                     && table.getMaxCapacity() >= people
                     && table.getMaxCapacity() <= people + 2) {
+                System.out.println("Mesa encontrada: ");
                 table.occupyTable(customerGroup);
                 statistics.incrementOccupiedTables();
                 statistics.addCustomer(people);

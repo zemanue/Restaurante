@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Restaurant {
@@ -15,13 +16,19 @@ public class Restaurant {
 
     public static void main(String[] args) {
 
+        System.out.println();
         System.out.println("Bienvenido a la simulación de un restaurante.");
         System.out.println("A continuación, el restaurante abrirá en su primer día, y desde las " + openingHour + ":00 hasta las " + closingHour + ":00 llegarán clientes.");
         System.out.println("El usuario debe ingresar el número de personas que habrá en cada grupo de clientes, y el sistema se encargará de asignarles automáticamente para optimizar el espacio y la satisfacción.");
         System.out.println("Los clientes pueden tener preferencias, como querer sentarse junto a la ventana, y esto también influirá en la satisfacción final.");
         System.out.println("Recuerda: el sistema no permite que grupos de clientes pequeños ocupen mesas demasiado grandes, porque entiende que esto sería desperdiciar el espacio.");
         System.out.println("Una vez termine el día, se mostrarán las estadísticas y se podrá avanzar a un nuevo día.");
-        System.out.println("¿Todo listo? ¡Comenzamos!");
+        System.out.println("¿Todo listo? ¡Introduce cualquier texto para comenzar!");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         boolean keepSimulating = true;
         while (keepSimulating) {

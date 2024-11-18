@@ -106,6 +106,20 @@ public class Table implements Comparable<Table> {
         this.occupiedSeats = 0;
     }
 
+    @Override
+    public String toString() {
+        return "Mesa " + tableNumber;
+    }
+
+    public String showDetails() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("- Mesa " + tableNumber + ": ");
+        sb.append("Capacidad máxima: " + maxCapacity);
+        sb.append((nextToWindow) ? ", Ventana" : ", No ventana");
+        sb.append((occupied) ? ". Ocupada por: " + occupiedSeats + " personas" : "");
+        return sb.toString();
+    }
+
     public boolean occupyTable(ArrayList<Customer> customerGroup) {
         if (customerGroup.size() <= 0) {
             System.out.println("Error: El número de personas debe ser mayor a 0");

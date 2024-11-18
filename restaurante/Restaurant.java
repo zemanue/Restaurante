@@ -37,7 +37,10 @@ public class Restaurant {
             initializeTables(new int[] { 2, 2, 2, 2, 2, 4, 4, 4, 10, 6, 2, 2, 6, 4, 8, 12 },
                     new boolean[] { false, false, false, true, true, true, false, false, true, true, false, false,
                             false, true, true, true });
-            System.out.println("Hay un total de " + tableList.size() + " mesas.");
+            System.out.println("Hay un total de " + tableList.size() + " mesas: ");
+            for (Table table : tableList) {
+                System.out.println(table.showDetails());
+            }
             System.out.println("Restaurante abierto");
 
             for (int i = openingHour; i < closingHour; i++) {

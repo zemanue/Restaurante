@@ -1,14 +1,16 @@
-# Simulación de Restaurante
+# 🍽️ Simulación de Restaurante / Restaurant simulator 🍽️
 
 <div align="center">
-    <img src="https://img.shields.io/badge/Java-v17-blue?style=flat&logo=java" alt="Java 17">
+    <img src="https://img.shields.io/badge/Java-blue?style=flat&logo=java" alt="Java">
     <img src="https://img.shields.io/badge/Status-In_Progress-yellow" alt="Status: In Progress">
 </div>
 
 ---
 
-## 📖 Descripción General (Español)
-Este proyecto simula un día en la vida de un restaurante, incluyendo la llegada de clientes, gestión de mesas y seguimiento de satisfacción.
+[English version ⬇️](#overview)
+
+## Descripción
+Este proyecto diseñado simula un día en la vida de un restaurante, incluyendo la llegada de clientes, gestión de mesas y seguimiento de satisfacción.
 El objetivo de este proyecto es poner en práctica lo que aprendo sobre Programación Orientada a Objetos en Java, y mejorar la simulación de aspectos de un restaurante como el servicio al cliente y la optimización de mesas, con un código modular y comprensible.
 
 ### 🚀 Características destacadas
@@ -39,7 +41,9 @@ Ideas para seguir desarrollando:
 
 ---
 
-## 📖 Overview (English)
+[Versión en español ⬆️](#descripción)
+
+## Overview
 This project simulates a day in a restaurant's life, including customer arrivals, table management, and satisfaction tracking. The project aims to apply Object-Oriented Programming principles in Java and continuously improve the realism of the restaurant experience by focusing on customer service and table optimization with modular, readable code.
 
 ### 🚀 Key Features

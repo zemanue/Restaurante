@@ -80,6 +80,14 @@ public class Table implements Comparable<Table> {
         this.timeOccupied = timeOccupied;
     }
 
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
+    }
+
     // Constructor with maxCapacity by default = 2;
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;

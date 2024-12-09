@@ -13,14 +13,7 @@ public class Table implements Comparable<Table> {
     private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
     private double totalSpending = 0;
-
-    public double getTotalSpending() {
-        return totalSpending;
-    }
-
-    public void setTotalSpending(double totalSpending) {
-        this.totalSpending = totalSpending;
-    }
+    
 
     // GETTERS AND SETTERS
     public int getTableNumber() {
@@ -150,7 +143,6 @@ public class Table implements Comparable<Table> {
             }
 
             System.out.println(this.showDetails());
-            System.out.println("Total gastado por el grupo: " + totalSpending + " euros");
             System.out.println("");
             return true;
         }
@@ -158,16 +150,17 @@ public class Table implements Comparable<Table> {
 
     public int calculateInitialSatisfaction(Customer customer, int groupSize) {
         int satisfaction = 5;
-        
-        // If the customer prefers window and the group is seated next to the window, +1 or -1
+
+        // If the customer prefers window and the group is seated next to the window, +1
+        // or -1
         if (customer.getPrefersWindow()) {
             if (this.nextToWindow) {
-                satisfaction += 1; 
+                satisfaction += 1;
             } else {
                 satisfaction -= 1;
             }
         }
-    
+
         // If the table is too big or too small, -1
         if (this.getMaxCapacity() - groupSize > 2 || this.getMaxCapacity() - groupSize == 0) {
             satisfaction -= 1;
@@ -189,7 +182,8 @@ public class Table implements Comparable<Table> {
             if (timeOccupied >= random.nextInt(1, 5)) {
                 freeTable(true);
             } else {
-                System.out.println("La mesa " + tableNumber + " sigue sentada. Lleva " + timeOccupied + " hora/s sentada.");
+                System.out.println(
+                        "La mesa " + tableNumber + " sigue sentada. Lleva " + timeOccupied + " hora/s sentada.");
             }
         }
     }
@@ -214,6 +208,7 @@ public class Table implements Comparable<Table> {
         }
         if (message && occupied) {
             System.out.println("- Satisfacción media: " + calculateAverageSatisfaction() + "/5");
+            System.out.println("- Total gastado por el grupo: " + totalSpending + " euros");
         }
         this.occupied = false;
         this.occupiedSeats = 0;

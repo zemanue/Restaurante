@@ -40,4 +40,7 @@ public class Customer {
         this.prefersWindow = prefersWindow;
     }    
 
+    public double calculateSpending() {
+        return random.nextInt(10, 21); // Random number between 10 and 20
+    }
 }

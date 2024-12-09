@@ -132,6 +132,7 @@ public class Restaurant {
                     table.occupyTable(customerGroup);
                     statistics.incrementOccupiedTables();
                     statistics.addCustomer(people);
+                    statistics.addEarnings(table.getTotalSpending());
                     return;
                 }
             }
@@ -150,6 +151,7 @@ public class Restaurant {
                 table.occupyTable(customerGroup);
                 statistics.incrementOccupiedTables();
                 statistics.addCustomer(people);
+                statistics.addEarnings(table.getTotalSpending());
                 return;
             }
         }

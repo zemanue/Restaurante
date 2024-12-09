@@ -12,6 +12,15 @@ public class Table implements Comparable<Table> {
     private int tableSatisfaction = 0;
     private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
+    private double totalSpending = 0;
+
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
+    }
 
     // GETTERS AND SETTERS
     public int getTableNumber() {
@@ -137,9 +146,11 @@ public class Table implements Comparable<Table> {
             for (Customer customer : customerGroup) {
                 int satisfaction = calculateInitialSatisfaction(customer, customerGroup.size());
                 customer.setSatisfactionLevel(satisfaction);
+                totalSpending += customer.calculateSpending();
             }
 
             System.out.println(this.showDetails());
+            System.out.println("Total gastado por el grupo: " + totalSpending + " euros");
             System.out.println("");
             return true;
         }

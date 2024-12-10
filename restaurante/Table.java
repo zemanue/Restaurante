@@ -13,7 +13,6 @@ public class Table implements Comparable<Table> {
     private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
     private double totalSpending = 0;
-    
 
     // GETTERS AND SETTERS
     public int getTableNumber() {

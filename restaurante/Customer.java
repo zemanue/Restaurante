@@ -11,7 +11,7 @@ public class Customer {
         this.prefersWindow = random.nextBoolean();
     }
 
-    public Customer(int patienceLevel , boolean prefersWindow) {
+    public Customer(int patienceLevel, boolean prefersWindow) {
         this.patienceLevel = patienceLevel;
         this.prefersWindow = prefersWindow;
     }
@@ -31,14 +31,14 @@ public class Customer {
     public void setPatienceLevel(int patienceLevel) {
         this.patienceLevel = patienceLevel;
     }
-    
+
     public boolean getPrefersWindow() {
         return prefersWindow;
     }
 
     public void setPrefersWindow(boolean prefersWindow) {
         this.prefersWindow = prefersWindow;
-    }    
+    }
 
     public double calculateSpending() {
         return random.nextInt(10, 21); // Random number between 10 and 20

@@ -20,9 +20,12 @@ public class Restaurant {
         System.out.println("Bienvenido a la simulación de un restaurante.");
         System.out.println("A continuación, el restaurante abrirá en su primer día, y desde las " + openingHour
                 + ":00 hasta las " + closingHour + ":00 llegarán clientes.");
-        System.out.println("El usuario debe ingresar el número de personas que habrá en cada grupo de clientes, y el sistema se encargará de asignarles automáticamente para optimizar el espacio y la satisfacción.");
-        System.out.println("Los clientes pueden tener preferencias, como querer sentarse junto a la ventana, y esto también influirá en la satisfacción final.");
-        System.out.println("Recuerda: el sistema no permite que grupos de clientes pequeños ocupen mesas demasiado grandes, porque entiende que esto sería desperdiciar el espacio.");
+        System.out.println(
+                "El usuario debe ingresar el número de personas que habrá en cada grupo de clientes, y el sistema se encargará de asignarles automáticamente para optimizar el espacio y la satisfacción.");
+        System.out.println(
+                "Los clientes pueden tener preferencias, como querer sentarse junto a la ventana, y esto también influirá en la satisfacción final.");
+        System.out.println(
+                "Recuerda: el sistema no permite que grupos de clientes pequeños ocupen mesas demasiado grandes, porque entiende que esto sería desperdiciar el espacio.");
         System.out.println("Una vez termine el día, se mostrarán las estadísticas y se podrá avanzar a un nuevo día.");
         System.out.println("¿Todo listo? ¡Introduce cualquier texto para comenzar!");
         try {
@@ -40,7 +43,7 @@ public class Restaurant {
                             false, true, true, true });
             System.out.println("Hay un total de " + tableList.size() + " mesas: ");
             for (Table table : tableList) {
-                System.out.println("- " +table.showDetails());
+                System.out.println("- " + table.showDetails());
             }
             System.out.println("Restaurante abierto");
 

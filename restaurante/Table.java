@@ -226,7 +226,8 @@ public class Table implements Comparable<Table> {
         if (message && occupied) {
             System.out.println("- Satisfacción media: " + calculateAverageSatisfaction() + "/5");
             System.out.println("- Total gastado por el grupo: " + totalSpending + " euros");
-            System.out.println("- Propina recibida: " + totalTips + " euros");
+            double tipPercentage = Math.round((totalTips / totalSpending) * 1000.0) / 10.0;
+            System.out.println("- Propina recibida: " + totalTips + " euros (" + tipPercentage + "% del total)");
         }
         this.occupied = false;
         this.occupiedSeats = 0;

@@ -6,6 +6,7 @@ public class Statistics {
     private int windowPreference = 0;
     private int timesWindowPreferenceGiven = 0;
     private double totalEarnings = 0.0;
+    private double totalTips = 0.0;
 
     public void incrementOccupiedTables() {
         occupiedTables++;
@@ -35,6 +36,10 @@ public class Statistics {
         totalEarnings += earnings;
     }
 
+    public void addTips(double tips) {
+        this.totalTips += tips;
+    }
+
     public void show() {
         System.out.println();
         System.out.println("Estadísticas:");
@@ -45,6 +50,7 @@ public class Statistics {
         System.out.println("- Veces que un grupo de clientes se quedó sin mesa: " + timesWithoutTable);
         System.out.println("- Preferencias de ventana dadas: " + timesWindowPreferenceGiven + "/" + windowPreference);
         System.out.println("- Total de dinero ganado: " + totalEarnings + " euros");
+        System.out.println("- Propinas recibidas: " + totalTips + " euros");
     }
 
     public void reset() {
@@ -55,6 +61,7 @@ public class Statistics {
         windowPreference = 0;
         timesWindowPreferenceGiven = 0;
         totalEarnings = 0.0;
+        totalTips = 0.0;
         Table.setSumOfTablesSatisfaction(0);
     }
 }

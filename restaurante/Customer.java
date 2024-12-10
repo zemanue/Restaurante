@@ -5,6 +5,8 @@ public class Customer {
     private int satisfactionLevel;
     private int patienceLevel;
     private boolean prefersWindow;
+    private double spending;
+    private double tip;
 
     public Customer() {
         this.patienceLevel = random.nextInt(1, 11);
@@ -41,6 +43,14 @@ public class Customer {
     }
 
     public double calculateSpending() {
-        return random.nextInt(10, 21); // Random number between 10 and 20
+        // Random number between 10 and 20, rounded to 1 decimal place
+        spending = Math.round((random.nextDouble() * 10 + 10) * 10.0) / 10.0;
+        return spending;
+    }
+
+    public double calculateTip() {
+        // Random number between 0 and 20% of the total spending, rounded to 2 decimal places
+        tip = Math.round(random.nextDouble() * spending * 0.2 * 100.0) / 100.0;
+        return tip;
     }
 }

@@ -13,6 +13,7 @@ public class Table implements Comparable<Table> {
     private static int sumOfTablesSatisfaction = 0;
     private int timeOccupied = 0;
     private double totalSpending = 0;
+    private double totalTips = 0;
 
     // GETTERS AND SETTERS
     public int getTableNumber() {
@@ -87,6 +88,14 @@ public class Table implements Comparable<Table> {
         this.totalSpending = totalSpending;
     }
 
+    public double getTotalTips() {
+        return totalTips;
+    }
+
+    public void setTotalTips(double totalTips) {
+        this.totalTips = totalTips;
+    }
+
     // Constructor with maxCapacity by default = 2;
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
@@ -147,6 +156,7 @@ public class Table implements Comparable<Table> {
                 int satisfaction = calculateInitialSatisfaction(customer, customerGroup.size());
                 customer.setSatisfactionLevel(satisfaction);
                 totalSpending += customer.calculateSpending();
+                totalTips += customer.calculateTip();
             }
 
             System.out.println(this.showDetails());
@@ -216,6 +226,7 @@ public class Table implements Comparable<Table> {
         if (message && occupied) {
             System.out.println("- Satisfacción media: " + calculateAverageSatisfaction() + "/5");
             System.out.println("- Total gastado por el grupo: " + totalSpending + " euros");
+            System.out.println("- Propina recibida: " + totalTips + " euros");
         }
         this.occupied = false;
         this.occupiedSeats = 0;
